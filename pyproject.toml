@@ -1,0 +1,24 @@
+[project]
+name = "the-driver"
+version = "0.1.0"
+description = "AI-powered code review CLI for Engineering Managers"
+readme = "README.md"
+authors = [
+    { name = "Jyr", email = "jyr@buildfaster.dev" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "click>=8.0",
+    "anthropic>=0.40",
+    "gitpython>=3.1",
+    "jinja2>=3.1",
+    "pyyaml>=6.0",
+    "rich>=13.0",
+]
+
+[project.scripts]
+the-driver = "the_driver.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.9.28,<0.10.0"]
+build-backend = "uv_build"

@@ -1,0 +1,54 @@
+import click
+from rich.console import Console
+
+from the_driver.ingester import ingest_repo
+from the_driver.scanner import scan_repo
+from the_driver.reviewer import review_repo
+from the_driver.report import generate_report
+
+console = Console()
+
+
+@click.group()
+@click.version_option(version="0.1.0")
+def main():
+    """The Driver — AI-powered code review for engineering candidates."""
+    pass
+
+
+@main.command()
+@click.argument("repo_path", type=click.Path(exists=True))
+@click.option("--candidate", default=None, help="Candidate name for report header.")
+@click.option("--repo-url", default=None, help="Repository URL for report header.")
+@click.option("--output", default="./report.md", help="Output file path.")
+@click.option("--model", default="sonnet", help="Claude model: sonnet (default) or opus.")
+def analyze(repo_path: str, candidate: str | None, repo_url: str | None, output: str, model: str):
+    """Analyze a candidate's Git repository and generate a report."""
+    with console.status("[bold green]Ingesting repository..."):
+        repo_data = ingest_repo(repo_path)
+
+    console.print(f"[green]✓[/green] Ingested {repo_data.total_files} files, {len(repo_data.commits)} commits")
+
+    with console.status("[bold green]Running automated scan..."):
+        scan_result = scan_repo(repo_data)
+
+    console.print("[green]✓[/green] Automated scan complete")
+
+    with console.status("[bold green]Running AI expert review..."):
+        review_result = review_repo(repo_data, model=model)
+
+    console.print("[green]✓[/green] AI review complete")
+
+    with console.status("[bold green]Generating report..."):
+        report = generate_report(
+            repo_data=repo_data,
+            scan_result=scan_result,
+            review_result=review_result,
+            candidate=candidate,
+            repo_url=repo_url,
+        )
+
+    with open(output, "w") as f:
+        f.write(report)
+
+    console.print(f"[green]✓[/green] Report saved to [bold]{output}[/bold]")
