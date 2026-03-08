@@ -2,8 +2,8 @@ import json
 import pytest
 import click
 from unittest.mock import patch, MagicMock
-from the_driver.models import RepoData, FileInfo
-from the_driver.reviewer import review_repo, _parse_review_response, _build_codebase_context
+from vetter.models import RepoData, FileInfo
+from vetter.reviewer import review_repo, _parse_review_response, _build_codebase_context
 
 
 VALID_RESPONSE = json.dumps({
@@ -79,7 +79,7 @@ class TestReviewRepo:
             with pytest.raises(click.ClickException, match="ANTHROPIC_API_KEY"):
                 review_repo(_make_repo())
 
-    @patch("the_driver.reviewer.anthropic.Anthropic")
+    @patch("vetter.reviewer.anthropic.Anthropic")
     def test_successful_review(self, mock_anthropic_class):
         mock_client = MagicMock()
         mock_anthropic_class.return_value = mock_client

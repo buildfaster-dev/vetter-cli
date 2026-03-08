@@ -1,7 +1,7 @@
 [project]
-name = "the-driver"
+name = "vetter"
 version = "0.1.0"
-description = "AI-powered code review CLI for Engineering Managers"
+description = "AI-powered code review CLI for technical hiring"
 readme = "README.md"
 authors = [
     { name = "Jyr", email = "jyr@buildfaster.dev" }
@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
-the-driver = "the_driver.cli:main"
+vetter = "vetter.cli:main"
 
 [build-system]
 requires = ["uv_build>=0.9.28,<0.10.0"]

@@ -1,6 +1,6 @@
 import os
 from git import Repo
-from the_driver.models import RepoData, FileInfo, CommitInfo
+from vetter.models import RepoData, FileInfo, CommitInfo
 
 
 BINARY_EXTENSIONS = {

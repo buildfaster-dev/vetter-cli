@@ -1,5 +1,5 @@
 import re
-from the_driver.models import RepoData, ScanResult
+from vetter.models import RepoData, ScanResult
 
 
 LINTER_CONFIGS = [

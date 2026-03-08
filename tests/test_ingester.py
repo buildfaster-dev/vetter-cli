@@ -1,4 +1,4 @@
-from the_driver.ingester import _detect_language, _is_test_file, _is_binary, _should_skip
+from vetter.ingester import _detect_language, _is_test_file, _is_binary, _should_skip
 
 
 class TestDetectLanguage:

@@ -1,6 +1,6 @@
-# The Driver
+# Vetter
 
-AI-powered code review CLI for Engineering Managers. Analyzes a candidate's Git repo and generates a `report.md` evaluating SE foundations and AI orchestration skills. Python 3.12+, CLI-only. Status: pre-MVP.
+AI-powered code review CLI for technical hiring. Analyzes a candidate's Git repo and generates a `report.md` evaluating SE foundations and AI orchestration skills. Python 3.12+, CLI-only. Status: pre-MVP.
 
 ## Architecture
 
@@ -15,9 +15,9 @@ CLI (Click) → Repo Ingester (GitPython) → ┬→ Layer 1: Scanner (static an
 ## Directory Structure
 
 ```
-the-driver/
-├── src/the_driver/
-│   ├── cli.py              # Click entry point: `the-driver analyze`
+vetter-cli/
+├── src/vetter/
+│   ├── cli.py              # Click entry point: `vetter analyze`
 │   ├── ingester.py         # Git repo → RepoData (files, commits, metadata)
 │   ├── scanner.py          # Layer 1: test ratio, linter, commits, security
 │   ├── reviewer.py         # Layer 2: Claude API → Three Pillars scores
@@ -43,7 +43,7 @@ the-driver/
 ## CLI Interface
 
 ```
-the-driver analyze <repo-path> [OPTIONS]
+vetter analyze <repo-path> [OPTIONS]
 
 Options:
   --candidate TEXT    Candidate name for report header
@@ -76,7 +76,7 @@ Options:
 
 ```bash
 uv sync                              # Install dependencies
-uv run the-driver analyze <path>     # Run analysis
+uv run vetter analyze <path>         # Run analysis
 uv run pytest                        # Run tests
 ```
 

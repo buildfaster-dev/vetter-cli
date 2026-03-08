@@ -1,10 +1,10 @@
 import click
 from rich.console import Console
 
-from the_driver.ingester import ingest_repo
-from the_driver.scanner import scan_repo
-from the_driver.reviewer import review_repo
-from the_driver.report import generate_report
+from vetter.ingester import ingest_repo
+from vetter.scanner import scan_repo
+from vetter.reviewer import review_repo
+from vetter.report import generate_report
 
 console = Console()
 
@@ -12,7 +12,7 @@ console = Console()
 @click.group()
 @click.version_option(version="0.1.0")
 def main():
-    """The Driver — AI-powered code review for engineering candidates."""
+    """Vetter — AI-powered code review for technical hiring."""
     pass
 
 

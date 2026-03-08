@@ -1,6 +1,6 @@
-# The Driver
+# Vetter
 
-An AI-powered code review CLI tool for Engineering Managers evaluating software engineer candidates.
+An AI-powered code review CLI tool for technical hiring.
 
 ## Problem
 
@@ -35,8 +35,8 @@ Engineering Managers spend excessive time reviewing technical tests from candida
 ## MVP Flow
 
 1. Candidate submits a Git repo (technical test solution)
-2. The Driver analyzes the repo automatically
-3. The Driver generates a `report.md` with structured assessment
+2. Vetter analyzes the repo automatically
+3. Vetter generates a `report.md` with structured assessment
 
 ## Solution: Three-Layer Architecture
 

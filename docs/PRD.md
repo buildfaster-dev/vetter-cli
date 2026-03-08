@@ -1,4 +1,4 @@
-# PRD: The Driver
+# PRD: Vetter
 
 ## 1. Overview
 
@@ -13,7 +13,7 @@ There is no standardized, repeatable process to evaluate these dimensions consis
 
 ### Proposed Solution
 
-**The Driver** — a CLI tool that accepts a candidate's Git repository, performs automated static analysis (Layer 1) and an AI-powered expert code review (Layer 2), and generates a structured `report.md` (Layer 3) scoring the candidate across three pillars: Architecture Awareness, Code Refinement, and Edge Case Coverage.
+**Vetter** — a CLI tool that accepts a candidate's Git repository, performs automated static analysis (Layer 1) and an AI-powered expert code review (Layer 2), and generates a structured `report.md` (Layer 3) scoring the candidate across three pillars: Architecture Awareness, Code Refinement, and Edge Case Coverage.
 
 ### Goals & Success Metrics
 
@@ -53,7 +53,7 @@ There is no standardized, repeatable process to evaluate these dimensions consis
 
 | ID | Priority | Story | Acceptance Criteria |
 |----|----------|-------|-------------------|
-| US-01 | **Must** | As an EM, I want to run `the-driver analyze <repo-path>` and get a `report.md`, so I can quickly assess a candidate. | CLI accepts a local repo path, runs analysis, and outputs `report.md` within 5 minutes. |
+| US-01 | **Must** | As an EM, I want to run `vetter analyze <repo-path>` and get a `report.md`, so I can quickly assess a candidate. | CLI accepts a local repo path, runs analysis, and outputs `report.md` within 5 minutes. |
 | US-02 | **Must** | As an EM, I want to see objective code metrics in the report, so I have data-driven evidence. | Report includes: test file presence/ratio, linter config detection, commit count and message quality, dependency summary, error handling pattern analysis, security flag count. |
 | US-03 | **Must** | As an EM, I want an AI-generated expert assessment with scores on the Three Pillars, so I can evaluate SE depth and AI usage quality. | Report includes 1-5 scores for Architecture Awareness, Code Refinement, and Edge Case Coverage, each with written justification citing specific code evidence. |
 | US-04 | **Must** | As an EM, I want a final classification and recommendation in the report, so I have a clear takeaway. | Report concludes with classification (Copy-Paster / Assisted Engineer / AI Orchestrator) and recommendation (Pass / Review Further / Reject). |
@@ -70,7 +70,7 @@ There is no standardized, repeatable process to evaluate these dimensions consis
 ### Core Features (MVP)
 
 **FR-01: CLI Interface**
-- Command: `the-driver analyze <repo-path>`
+- Command: `vetter analyze <repo-path>`
 - Options: `--candidate <name>`, `--repo-url <url>`, `--output <path>`, `--model <model>` (default: sonnet)
 - Progress feedback during analysis
 - Exit codes: 0 (success), 1 (error)

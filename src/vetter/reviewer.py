@@ -2,7 +2,7 @@ import json
 import os
 import click
 import anthropic
-from the_driver.models import RepoData, ReviewResult, PillarScore
+from vetter.models import RepoData, ReviewResult, PillarScore
 
 
 MODEL_MAP = {

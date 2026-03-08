@@ -1,10 +1,10 @@
-# TDD: The Driver
+# TDD: Vetter
 
 ## 1. Technical Overview
 
 ### System Purpose
 
-The Driver is a Python CLI tool that analyzes a candidate's Git repository submission and generates a structured `report.md` evaluating software engineering foundations and AI orchestration skills. It operates in three layers: automated static analysis, AI-powered expert review, and report generation.
+Vetter is a Python CLI tool that analyzes a candidate's Git repository submission and generates a structured `report.md` evaluating software engineering foundations and AI orchestration skills. It operates in three layers: automated static analysis, AI-powered expert review, and report generation.
 
 ### Key Technical Decisions
 
@@ -171,10 +171,10 @@ class Classification:
 
 ## 4. API Design
 
-No HTTP API. The Driver is a CLI tool. The "API" is the command interface:
+No HTTP API. Vetter is a CLI tool. The "API" is the command interface:
 
 ```
-the-driver analyze <repo-path> [OPTIONS]
+vetter analyze <repo-path> [OPTIONS]
 
 Options:
   --candidate TEXT    Candidate name for report header
@@ -336,7 +336,7 @@ For ongoing development after the initial build:
 ## Project Structure
 
 ```
-the-driver/
+vetter-cli/
 ├── docs/
 │   ├── prompts/
 │   ├── ADRs/
@@ -344,7 +344,7 @@ the-driver/
 │   ├── PRD.md
 │   └── TDD.md
 ├── src/
-│   └── the_driver/
+│   └── vetter/
 │       ├── __init__.py
 │       ├── cli.py              # Click CLI entry point
 │       ├── ingester.py         # Git repo data extraction

@@ -1,5 +1,5 @@
-from the_driver.models import RepoData, FileInfo, CommitInfo
-from the_driver.scanner import scan_repo
+from vetter.models import RepoData, FileInfo, CommitInfo
+from vetter.scanner import scan_repo
 from datetime import datetime, timezone
 
 

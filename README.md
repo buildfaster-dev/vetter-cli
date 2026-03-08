@@ -1,6 +1,6 @@
-# The Driver
+# Vetter
 
-AI-powered code review CLI for Engineering Managers evaluating software engineer candidates.
+AI-powered code review CLI for technical hiring.
 
 Analyzes a candidate's Git repository and generates a structured `report.md` evaluating **software engineering foundations** and **AI orchestration skills** across three pillars:
 
@@ -13,8 +13,8 @@ Analyzes a candidate's Git repository and generates a structured `report.md` eva
 Requires Python 3.12+ and [uv](https://docs.astral.sh/uv/).
 
 ```bash
-git clone https://github.com/buildfaster-dev/the-driver.git
-cd the-driver
+git clone https://github.com/buildfaster-dev/vetter-cli.git
+cd vetter-cli
 uv sync
 ```
 
@@ -24,7 +24,7 @@ uv sync
 export ANTHROPIC_API_KEY=your-key-here
 
 # Analyze a local repo
-uv run the-driver analyze /path/to/candidate/repo
+uv run vetter analyze /path/to/candidate/repo
 ```
 
 ### Options
@@ -54,10 +54,10 @@ Sends the codebase to Claude for expert evaluation. Scores each pillar (1-5) wit
 
 ### Layer 3: Report Generation
 Combines both layers into a `report.md` with:
-- Metrics summary
-- Pillar scores with justification
 - Classification: **Copy-Paster** / **Assisted Engineer** / **AI Orchestrator**
 - Recommendation: **Reject** / **Review Further** / **Pass**
+- Pillar scores with justification
+- Metrics summary
 
 ## Example Output
 
@@ -81,7 +81,7 @@ uv sync
 uv run pytest -v
 
 # Run the CLI
-uv run the-driver --help
+uv run vetter --help
 ```
 
 ## License

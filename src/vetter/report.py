@@ -1,7 +1,7 @@
 import os
 from datetime import datetime, timezone
 from jinja2 import Environment, FileSystemLoader
-from the_driver.models import RepoData, ScanResult, ReviewResult, Classification
+from vetter.models import RepoData, ScanResult, ReviewResult, Classification
 
 
 def _classify(review_result: ReviewResult) -> Classification:

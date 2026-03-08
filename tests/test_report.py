@@ -1,8 +1,8 @@
-from the_driver.models import (
+from vetter.models import (
     RepoData, FileInfo, CommitInfo,
     ScanResult, ReviewResult, PillarScore,
 )
-from the_driver.report import generate_report, _classify
+from vetter.report import generate_report, _classify
 
 
 def _make_review(arch=4, refine=4, edge=4):
