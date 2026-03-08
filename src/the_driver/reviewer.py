@@ -116,29 +116,41 @@ def _parse_review_response(response_text: str) -> ReviewResult:
         if text.endswith("```"):
             text = text[:-3]
 
-    data = json.loads(text)
+    try:
+        data = json.loads(text)
+    except json.JSONDecodeError as e:
+        raise click.ClickException(
+            f"Failed to parse AI review response as JSON: {e}\n"
+            f"Raw response:\n{response_text[:500]}"
+        )
 
-    return ReviewResult(
-        architecture_awareness=PillarScore(
-            name="Architecture Awareness",
-            score=data["architecture_awareness"]["score"],
-            justification=data["architecture_awareness"]["justification"],
-            evidence=data["architecture_awareness"].get("evidence", []),
-        ),
-        code_refinement=PillarScore(
-            name="Code Refinement",
-            score=data["code_refinement"]["score"],
-            justification=data["code_refinement"]["justification"],
-            evidence=data["code_refinement"].get("evidence", []),
-        ),
-        edge_case_coverage=PillarScore(
-            name="Edge Case Coverage",
-            score=data["edge_case_coverage"]["score"],
-            justification=data["edge_case_coverage"]["justification"],
-            evidence=data["edge_case_coverage"].get("evidence", []),
-        ),
-        overall_summary=data["overall_summary"],
-    )
+    try:
+        return ReviewResult(
+            architecture_awareness=PillarScore(
+                name="Architecture Awareness",
+                score=data["architecture_awareness"]["score"],
+                justification=data["architecture_awareness"]["justification"],
+                evidence=data["architecture_awareness"].get("evidence", []),
+            ),
+            code_refinement=PillarScore(
+                name="Code Refinement",
+                score=data["code_refinement"]["score"],
+                justification=data["code_refinement"]["justification"],
+                evidence=data["code_refinement"].get("evidence", []),
+            ),
+            edge_case_coverage=PillarScore(
+                name="Edge Case Coverage",
+                score=data["edge_case_coverage"]["score"],
+                justification=data["edge_case_coverage"]["justification"],
+                evidence=data["edge_case_coverage"].get("evidence", []),
+            ),
+            overall_summary=data["overall_summary"],
+        )
+    except KeyError as e:
+        raise click.ClickException(
+            f"AI review response missing expected field: {e}\n"
+            f"Raw response:\n{response_text[:500]}"
+        )
 
 
 def review_repo(repo_data: RepoData, model: str = "sonnet") -> ReviewResult:
@@ -150,15 +162,22 @@ def review_repo(repo_data: RepoData, model: str = "sonnet") -> ReviewResult:
     client = anthropic.Anthropic(api_key=api_key)
     context = _build_codebase_context(repo_data)
 
-    message = client.messages.create(
-        model=model_id,
-        max_tokens=4096,
-        temperature=0,
-        system=SYSTEM_PROMPT,
-        messages=[
-            {"role": "user", "content": f"Review this candidate's technical test submission:\n\n{context}"}
-        ],
-    )
+    try:
+        message = client.messages.create(
+            model=model_id,
+            max_tokens=4096,
+            temperature=0,
+            system=SYSTEM_PROMPT,
+            messages=[
+                {"role": "user", "content": f"Review this candidate's technical test submission:\n\n{context}"}
+            ],
+        )
+    except anthropic.AuthenticationError:
+        raise click.ClickException("Invalid ANTHROPIC_API_KEY. Please check your API key.")
+    except anthropic.RateLimitError:
+        raise click.ClickException("Anthropic API rate limit reached. Please wait and try again.")
+    except anthropic.APIError as e:
+        raise click.ClickException(f"Anthropic API error: {e}")
 
     response_text = message.content[0].text
     return _parse_review_response(response_text)
