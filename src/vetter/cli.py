@@ -18,12 +18,12 @@ def main():
 
 @main.command()
 @click.argument("repo_path", type=click.Path(exists=True))
-@click.option("--candidate", default=None, help="Candidate name for report header.")
-@click.option("--repo-url", default=None, help="Repository URL for report header.")
-@click.option("--output", default="./report.md", help="Output file path.")
+@click.option("--candidate", default=None, help="Candidate name (report header only, does not affect analysis).")
+@click.option("--repo-url", default=None, help="Repository URL (report header only — does not clone).")
+@click.option("--output", default="./report.md", help="Output file path (default: ./report.md).")
 @click.option("--model", default="sonnet", help="Claude model: sonnet (default) or opus.")
 def analyze(repo_path: str, candidate: str | None, repo_url: str | None, output: str, model: str):
-    """Analyze a candidate's Git repository and generate a report."""
+    """Analyze a local Git repository and generate a report."""
     with console.status("[bold green]Ingesting repository..."):
         repo_data = ingest_repo(repo_path)
 

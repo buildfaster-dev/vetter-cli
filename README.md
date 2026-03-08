@@ -20,10 +20,16 @@ uv sync
 
 ## Usage
 
+Vetter analyzes **local repositories only**. Clone the candidate's repo first, then point Vetter at it.
+
 ```bash
 export ANTHROPIC_API_KEY=your-key-here
 
-# Analyze a local repo
+# Clone and analyze
+git clone https://github.com/candidate/repo.git
+uv run vetter analyze ./repo
+
+# Or analyze a repo already on disk
 uv run vetter analyze /path/to/candidate/repo
 ```
 
@@ -33,8 +39,8 @@ uv run vetter analyze /path/to/candidate/repo
 |--------|---------|-------------|
 | `--model` | `sonnet` | Claude model: `sonnet` (faster, cheaper) or `opus` (deeper analysis) |
 | `--output` | `./report.md` | Output file path |
-| `--candidate` | Not specified | Candidate name for report header |
-| `--repo-url` | — | Repository URL for report header |
+| `--candidate` | — | Candidate name (report header only, does not affect analysis) |
+| `--repo-url` | — | Repository URL (report header only — does not clone) |
 
 `--candidate` and `--repo-url` are metadata that appear in the report header. They do not affect analysis.
 

@@ -43,14 +43,16 @@ vetter-cli/
 ## CLI Interface
 
 ```
-vetter analyze <repo-path> [OPTIONS]
+vetter analyze [OPTIONS] REPO_PATH
 
 Options:
-  --candidate TEXT    Candidate name for report header
-  --repo-url TEXT     Repository URL for report header
-  --output TEXT       Output path (default: ./report.md)
+  --candidate TEXT    Candidate name (report header only, does not affect analysis)
+  --repo-url TEXT     Repository URL (report header only — does not clone)
+  --output TEXT       Output file path (default: ./report.md)
   --model TEXT        Claude model (default: sonnet)
 ```
+
+REPO_PATH must be a local directory. Vetter does not clone remote URLs.
 
 ## Key Data Models (models.py)
 
