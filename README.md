@@ -13,21 +13,26 @@ Analyzes a candidate's Git repository and generates a structured `report.md` eva
 Requires Python 3.12+ and [uv](https://docs.astral.sh/uv/).
 
 ```bash
-git clone https://github.com/your-org/the-driver.git
+git clone https://github.com/buildfaster-dev/the-driver.git
 cd the-driver
 uv sync
 ```
 
 ## Usage
 
+**Note:** The repo must be cloned locally first. Remote URL analysis is not yet supported.
+
 ```bash
 export ANTHROPIC_API_KEY=your-key-here
 
-# Basic usage
-uv run the-driver analyze /path/to/candidate/repo
+# Clone the candidate's repo first
+git clone https://github.com/candidate/repo /tmp/candidate-repo
+
+# Run analysis
+uv run the-driver analyze /tmp/candidate-repo
 
 # With all options
-uv run the-driver analyze /path/to/repo \
+uv run the-driver analyze /tmp/candidate-repo \
   --candidate "Jane Doe" \
   --repo-url "https://github.com/candidate/repo" \
   --output ./reports/jane-doe.md \
@@ -39,7 +44,7 @@ uv run the-driver analyze /path/to/repo \
 | Option | Default | Description |
 |--------|---------|-------------|
 | `--candidate` | Not specified | Candidate name for report header |
-| `--repo-url` | Local path | Repository URL for report header |
+| `--repo-url` | Local path | URL for report header (metadata only, does not clone) |
 | `--output` | `./report.md` | Output file path |
 | `--model` | `sonnet` | Claude model: `sonnet`, `opus`, or `haiku` |
 
